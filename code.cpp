@@ -14,13 +14,13 @@ enum MarketplaceType {
 
 // Конвертация enum в строку для вывода
 string TypeToString(MarketplaceType type) {
-    switch (type) {
-    case Groceries: return "groceries";
-    case Home: return "home";
-    case Tech: return "tech";
-    case Clothes: return "clothes";
-    case All: return "all";
-    default: return "unknown";
+    switch(type) {
+        case Groceries: return "groceries";
+        case Home: return "home";
+        case Tech: return "tech";
+        case Clothes: return "clothes";
+        case All: return "all";
+        default: return "unknown";
     }
 }
 
@@ -223,6 +223,36 @@ void GroceriesMarketplaces(marketplace* source) {
     cout << "========================================" << endl;
 }
 
+void SearchName(marketplace* source, int size) {
+    string searchName;
+    bool found = false;
+    
+    cout << "\n========================================" << endl;
+    cout << "Enter marketplace name to search: ";
+    cin >> searchName;
+    cout << "========================================" << endl;
+    
+    for (int i = 0; i < size; i++) {
+        if (source[i].name == searchName) {
+            cout << "\nMarketplace found:" << endl;
+            cout << "Name: " << source[i].name << endl;
+            cout << "Quantity: " << source[i].quantity << endl;
+            cout << "Country: " << source[i].country << endl;
+            cout << "City: " << source[i].city << endl;
+            cout << "Networth: " << source[i].networth << endl;
+            cout << "Type: " << TypeToString(source[i].type) << endl;
+            cout << "Business: " << source[i].business << endl;
+            found = true;
+            break;
+        }
+    }
+    
+    if (!found) {
+        cout << "Marketplace not found!" << endl;
+    }
+    cout << "========================================" << endl;
+}
+
 void SortMenu(marketplace* source) {
     int choice;
 
@@ -356,6 +386,8 @@ int main() {
     WriteToBinaryFile("marketplace.bin", general_data, size);
     ReadFromBinaryFile("marketplace.bin", loaded_data, size);
     DisplayData(loaded_data, size);
+
+    SearchName(general_data, size);
 
     NotMoscow(general_data);
     Top3Popular(general_data);
